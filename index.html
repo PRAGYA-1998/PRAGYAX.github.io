@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Creative Portfolio</title>
-  <meta name="description" content="A personal portfolio website with home, creations, work, and about/contact sections, ready for GitHub Pages." />
+  <meta name="description" content="A personal portfolio website with home, art, science, and about/contact sections, ready for GitHub Pages." />
   <meta property="og:title" content="Creative Portfolio" />
   <meta property="og:description" content="A clean personal website template for creators, artists, and photographers." />
   <meta property="og:type" content="website" />
@@ -352,13 +352,13 @@
       font-size: var(--text-sm);
     }
 
-    .work-grid {
+    .science-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: var(--space-4);
       margin-top: var(--space-8);
     }
-    .work-card {
+    .science-card {
       background: var(--color-surface);
       border-radius: var(--radius-lg);
       padding: var(--space-5);
@@ -368,9 +368,9 @@
       flex-direction: column;
       gap: var(--space-4);
     }
-    .work-card h3 { font-size: var(--text-lg); }
-    .work-card p { color: var(--color-text-muted); }
-    .work-meta {
+    .science-card h3 { font-size: var(--text-lg); }
+    .science-card p { color: var(--color-text-muted); }
+    .science-meta {
       display: flex;
       justify-content: space-between;
       gap: var(--space-3);
@@ -441,7 +441,7 @@
       .hero-grid,
       .creations-layout,
       .about-layout,
-      .work-grid {
+      .science-grid {
         grid-template-columns: 1fr;
       }
       .stats { grid-template-columns: 1fr; }
@@ -507,7 +507,7 @@
         <div class="nav-links" id="navLinks">
           <a href="#home">Home</a>
           <a href="#creations">Creations</a>
-          <a href="#work">Science</a>
+          <a href="#science">Science</a>
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
         </div>
@@ -599,7 +599,7 @@
       </div>
     </section>
 
-    <section class="section" id="work">
+    <section class="section" id="science">
       <div class="container">
         <span class="eyebrow">Science</span>
         <h2 class="section-title reveal">Selected projects and experience.</h2>
@@ -607,21 +607,21 @@
           Use this area to show freelance work, exhibitions, internships, collaborations, publications, or professional roles.
           Keep each card focused on what you did and what made the project meaningful.
         </p>
-        <div class="work-grid">
-          <article class="work-card reveal">
-            <div class="work-meta"><span>2025</span><span>Client project</span></div>
+        <div class="science-grid">
+          <article class="science-card reveal">
+            <div class="science-meta"><span>2025</span><span>Client project</span></div>
             <h3>Editorial photo campaign</h3>
             <p>Created a visual story for a culture-focused brand campaign, from concept sketches to final image curation.</p>
             <a href="#contact" class="btn btn-secondary">Ask about this work</a>
           </article>
-          <article class="work-card reveal">
-            <div class="work-meta"><span>2024</span><span>Exhibition</span></div>
+          <article class="science-card reveal">
+            <div class="science-meta"><span>2024</span><span>Exhibition</span></div>
             <h3>Mixed-media craft showcase</h3>
             <p>Presented a series combining recycled materials, hand textures, and minimal display design in a gallery setting.</p>
             <a href="#creations" class="btn btn-secondary">See related creations</a>
           </article>
-          <article class="work-card reveal">
-            <div class="work-meta"><span>Ongoing</span><span>Personal archive</span></div>
+          <article class="science-card reveal">
+            <div class="science-meta"><span>Ongoing</span><span>Personal archive</span></div>
             <h3>Field notes and visual experiments</h3>
             <p>Documenting everyday scenes, studies, and process images as an evolving long-term body of work.</p>
             <a href="#about" class="btn btn-secondary">Read my story</a>
