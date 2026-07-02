@@ -472,6 +472,14 @@
       display: none;
     }
 
+    .section.hidden {
+      display: none;
+    }
+
+    .section.hidden {
+      display: none;
+    }
+
     /* Responsive Media Queries */
 
     /* Tablet breakpoint (980px) */
@@ -667,7 +675,6 @@
 
   <main id="main-content">
     <section class="hero section" id="home">
-      <!-- Hero Grid Section at the Top of Home Section -->
       <div class="container hero-grid">
         <div class="reveal is-visible">
           <span class="eyebrow">Artist</span>
@@ -863,73 +870,6 @@
         });
       }
 
-      // Tab Switching & Section Navigation Logic
-      const sections = document.querySelectorAll('main section[id]');
-
-      function showSection(id) {
-        sections.forEach(section => {
-          if (section.id === id) {
-            section.classList.remove('hidden');
-            // Trigger reveal animations for elements in the shown section
-            section.querySelectorAll('.reveal:not(.is-visible)').forEach(el => {
-              el.classList.add('is-visible');
-            });
-          } else {
-            section.classList.add('hidden');
-          }
-        });
-
-        // Update active link in navbar
-        const navAnchors = document.querySelectorAll('.nav-links a');
-        navAnchors.forEach(link => {
-          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
-        });
-      }
-
-      // Handle all internal links starting with '#'
-      const anchors = document.querySelectorAll('a[href^="#"]');
-      anchors.forEach(link => {
-        link.addEventListener('click', (e) => {
-          const targetId = link.getAttribute('href').substring(1);
-          if (!targetId || targetId === 'main-content') return; // Skip skip-to-content
-
-          // Handle special alias 'about' (points to bio block inside 'home')
-          if (targetId === 'about') {
-            e.preventDefault();
-            showSection('home');
-            const bioBlock = document.querySelector('.home-about-panel');
-            if (bioBlock) {
-              bioBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-            // Close mobile menu
-            navLinks.classList.remove('open');
-            menuToggle && menuToggle.setAttribute('aria-expanded', 'false');
-            return;
-          }
-
-          // Check if there is a main section matching this ID
-          const targetSection = document.getElementById(targetId);
-          if (targetSection && targetSection.classList.contains('section')) {
-            e.preventDefault();
-            showSection(targetId);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            // Close mobile menu
-            navLinks.classList.remove('open');
-            menuToggle && menuToggle.setAttribute('aria-expanded', 'false');
-          }
-        });
-      });
-
-      // Initialize first section (defaults to home or hash in url)
-      const currentHash = window.location.hash.substring(1);
-      if (currentHash && document.getElementById(currentHash) && document.getElementById(currentHash).classList.contains('section')) {
-        showSection(currentHash);
-      } else {
-        showSection('home');
-      }
-
-      // Keep the original IntersectionObserver for any elements that might still use it
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) entry.target.classList.add('is-visible');
