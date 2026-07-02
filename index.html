@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creative Portfolio</title>
-  <meta name="description" content="A personal portfolio website with home, art, science, and about/contact sections, ready for GitHub Pages." />
-  <meta property="og:title" content="Creative Portfolio" />
-  <meta property="og:description" content="A clean personal website template for creators, artists, and photographers." />
+  <title>Creative Portfolio - Pragya Verma</title>
+  <meta name="description" content="A personal portfolio website with home, art, science, and contact sections, ready for GitHub Pages." />
+  <meta property="og:title" content="Creative Portfolio - Pragya Verma" />
+  <meta property="og:description" content="A clean, responsive personal website template for creators, artists, and researchers." />
   <meta property="og:type" content="website" />
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&f[]=boska@400,500,700&display=swap" rel="stylesheet">
   <style>
@@ -95,8 +95,9 @@
       background:
         radial-gradient(circle at top left, color-mix(in srgb, var(--color-primary) 10%, transparent), transparent 30%),
         var(--color-bg);
+      overflow-x: hidden; /* Prevent horizontal scrolling on tiny screens */
     }
-    img, svg { display: block; max-width: 100%; }
+    img, svg { display: block; max-width: 100%; height: auto; }
     a { color: inherit; text-decoration: none; }
     button, input, textarea { font: inherit; }
     button { cursor: pointer; border: 0; background: none; }
@@ -142,6 +143,7 @@
       line-height: 1.05;
       margin-top: var(--space-4);
       margin-bottom: var(--space-4);
+      overflow-wrap: break-word;
     }
     .section-copy {
       color: var(--color-text-muted);
@@ -151,7 +153,7 @@
     .site-header {
       position: sticky;
       top: 0;
-      z-index: 50;
+      z-index: 100;
       backdrop-filter: blur(14px);
       background: color-mix(in srgb, var(--color-bg) 86%, transparent);
       border-bottom: 1px solid color-mix(in srgb, var(--color-border) 75%, transparent);
@@ -202,19 +204,21 @@
     }
     .menu-toggle { display: none; }
 
+    /* Hero section */
     .hero-grid {
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
       gap: clamp(var(--space-8), 6vw, var(--space-16));
       align-items: center;
       min-height: calc(100vh - 4.5rem);
-      padding-block: var(--space-12);
+      padding-block: var(--space-8);
     }
     .hero h1 {
       font-family: var(--font-display);
-      font-size: clamp(3rem, 8vw, 6.8rem);
+      font-size: clamp(2rem, 7vw, 6.8rem);
       line-height: 0.95;
-      max-width: 10ch;
+      max-width: 12ch;
+      overflow-wrap: break-word;
     }
     .hero p {
       color: var(--color-text-muted);
@@ -281,6 +285,28 @@
       font-size: var(--text-xs);
     }
 
+    /* Homepage About panel */
+    .home-about-panel {
+      max-width: 800px;
+      margin-inline: auto;
+      display: flex;
+      gap: var(--space-8);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .home-about-content {
+      flex: 1;
+      min-width: min(300px, 100%);
+    }
+    .home-about-image {
+      width: 200px;
+      height: 200px;
+      border-radius: var(--radius-xl);
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    /* Stats */
     .stats {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -301,6 +327,7 @@
     }
     .stat span { color: var(--color-text-muted); font-size: var(--text-sm); }
 
+    /* Art / Gallery section */
     .art-layout {
       display: grid;
       grid-template-columns: 0.9fr 1.1fr;
@@ -352,6 +379,7 @@
       font-size: var(--text-sm);
     }
 
+    /* Science layout */
     .science-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -380,6 +408,7 @@
       letter-spacing: 0.1em;
     }
 
+    /* About page layout */
     .about-layout {
       display: grid;
       grid-template-columns: 0.95fr 1.05fr;
@@ -415,6 +444,7 @@
       color: var(--color-text-muted);
     }
 
+    /* Footer */
     .site-footer {
       padding-block: var(--space-8);
       border-top: 1px solid color-mix(in srgb, var(--color-border) 75%, transparent);
@@ -427,6 +457,7 @@
       flex-wrap: wrap;
     }
 
+    /* Reveal effect */
     .reveal {
       opacity: 0;
       transform: translateY(22px);
@@ -437,47 +468,158 @@
       transform: translateY(0);
     }
 
+    .section.hidden {
+      display: none;
+    }
+
+    /* Responsive Media Queries */
+
+    /* Tablet breakpoint (980px) */
     @media (max-width: 980px) {
-      .hero-grid,
+      .hero-grid {
+        grid-template-columns: 1fr;
+        min-height: auto; /* Fix: stacked layout shouldn't stretch vertical height to 100vh */
+        padding-top: var(--space-8);
+        gap: var(--space-10);
+      }
       .art-layout,
-      .about-layout,
-      .science-grid {
+      .about-layout {
         grid-template-columns: 1fr;
       }
-      .stats { grid-template-columns: 1fr; }
+      .science-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 columns on tablets for clean grid */
+      }
+      .stats {
+        grid-template-columns: repeat(3, minmax(0, 1fr)); /* Keep 3 columns on tablet, fits nicely */
+      }
+      
+      /* Mobile Drawer Menu */
       .nav-links {
         position: absolute;
         left: 1rem;
         right: 1rem;
-        top: calc(100% + 0.6rem);
+        top: calc(100% + 0.5rem);
         flex-direction: column;
-        align-items: flex-start;
-        padding: var(--space-4);
+        align-items: stretch;
+        gap: var(--space-3);
+        padding: var(--space-5);
         background: var(--color-surface);
         border: 1px solid color-mix(in srgb, var(--color-border) 80%, transparent);
         border-radius: var(--radius-lg);
-        box-shadow: var(--shadow-md);
-        display: none;
+        box-shadow: var(--shadow-lg);
+        z-index: 100;
+        
+        /* Smooth transitions instead of instant display: none/block */
+        opacity: 0;
+        transform: translateY(-10px) scale(0.98);
+        pointer-events: none;
+        transition: opacity 220ms cubic-bezier(0.16, 1, 0.3, 1), transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+        display: flex;
       }
-      .nav-links.open { display: flex; }
+      .nav-links.open {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        pointer-events: auto;
+      }
+      .nav-links a {
+        display: block;
+        padding-block: var(--space-2);
+        font-size: var(--text-base);
+        border-bottom: 1px solid color-mix(in srgb, var(--color-divider) 40%, transparent);
+      }
+      .nav-links a:last-child {
+        border-bottom: none;
+      }
+      
       .menu-toggle { display: grid; }
       .hero-visual { min-height: 26rem; }
     }
 
+    /* Mobile breakpoint (640px) */
     @media (max-width: 640px) {
       .container { width: min(calc(100% - 1.25rem), var(--content-width)); }
-      .hero-grid { min-height: auto; padding-top: var(--space-8); }
-      .hero h1 { max-width: 8ch; }
+      .hero-grid { padding-top: var(--space-4); }
+      .hero h1 { max-width: 12ch; }
+      
+      .stats {
+        grid-template-columns: 1fr; /* Collapse stats to single column on mobile */
+        gap: var(--space-3);
+      }
+      .science-grid {
+        grid-template-columns: 1fr; /* Collapse science cards to single column on mobile */
+      }
       .gallery { grid-template-columns: 1fr; grid-auto-rows: 220px; }
       .gallery figure:nth-child(1), .gallery figure:nth-child(4) {
         grid-column: auto;
         grid-row: auto;
       }
-      .header-inner { min-height: 4rem; }
-      .hero-actions, .footer-inner { flex-direction: column; align-items: flex-start; }
+      
+      /* Mobile header tweaks for absolute smallest screens */
+      .header-inner {
+        min-height: 4rem;
+        gap: var(--space-2);
+      }
+      .brand {
+        gap: var(--space-2);
+        font-size: var(--text-sm);
+      }
+      .brand-mark {
+        width: 1.8rem;
+        height: 1.8rem;
+      }
+      .theme-toggle,
+      .menu-toggle {
+        width: 2.4rem;
+        height: 2.4rem;
+      }
+
+      /* Full width buttons on mobile are standard practice */
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        gap: var(--space-3);
+      }
+      .hero-actions .btn {
+        width: 100%;
+      }
+      
+      /* Centered footer on mobile is much cleaner */
+      .footer-inner {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: var(--space-2);
+      }
       .contact-item { flex-direction: column; }
+
+      /* Homepage About layout stacking */
+      .home-about-panel {
+        flex-direction: column-reverse; /* Put photo on top of the biography text on mobile */
+        text-align: center;
+        gap: var(--space-6);
+      }
+      .home-about-image {
+        margin-inline: auto;
+      }
+      .home-about-content {
+        min-width: 0;
+        width: 100%;
+      }
+      
+      /* Reduce hero-visual slightly to fit small screen viewport */
+      .hero-visual {
+        min-height: 20rem;
+      }
+      .hero-card {
+        padding: var(--space-4);
+        right: var(--space-3);
+        bottom: var(--space-3);
+        width: calc(100% - var(--space-6));
+      }
     }
 
+    /* Animation preference reduction */
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       *, *::before, *::after {
@@ -486,6 +628,7 @@
         transition-duration: 0.01ms !important;
       }
       .reveal { opacity: 1; transform: none; }
+      .nav-links { transition: none !important; }
     }
   </style>
 </head>
@@ -508,7 +651,6 @@
           <a href="#home">Home</a>
           <a href="#art">Art</a>
           <a href="#science">Science</a>
-          <a href="#about">About</a>
           <a href="#contact">Contact</a>
         </div>
       </nav>
@@ -525,6 +667,7 @@
 
   <main id="main-content">
     <section class="hero section" id="home">
+      <!-- Hero Grid Section at the Top of Home Section -->
       <div class="container hero-grid">
         <div class="reveal is-visible">
           <span class="eyebrow">Artist</span>
@@ -559,9 +702,29 @@
           </div>
         </div>
       </div>
+
+      <!-- About Me Bio Section, beautifully placed below Hero -->
+      <div class="container" style="margin-top: var(--space-12);">
+        <article class="about-panel home-about-panel reveal">
+          <div class="home-about-content">
+            <span class="eyebrow">About me</span>
+            <h2 class="section-title">Tell people who you are and what drives your work.</h2>
+            <p class="section-copy">
+              Replace this paragraph with your own story: your background, your creative interests, your approach, and the themes you care about.
+              A short, warm introduction usually works better than a long biography on the homepage.
+            </p>
+            <div class="about-list">
+              <p>Based in: Your city, country</p>
+              <p>Focus: Photography, art, craft, visual storytelling</p>
+              <p>Available for: Collaborations, commissions, exhibitions, freelance work</p>
+            </div>
+          </div>
+          <img src="me.png" alt="About me" class="home-about-image">
+        </article>
+      </div>
     </section>
 
-    <section class="section" id="art">
+    <section class="section hidden" id="art">
       <div class="container art-layout">
         <div class="reveal">
           <span class="eyebrow">Art</span>
@@ -599,7 +762,7 @@
       </div>
     </section>
 
-    <section class="section" id="science">
+    <section class="section hidden" id="science">
       <div class="container">
         <span class="eyebrow">Science</span>
         <h2 class="section-title reveal">Selected projects and experience.</h2>
@@ -630,23 +793,9 @@
       </div>
     </section>
 
-    <section class="section" id="about">
-      <div class="container about-layout">
-        <article class="about-panel reveal">
-          <span class="eyebrow">About me</span>
-          <h2 class="section-title">Tell people who you are and what drives your work.</h2>
-          <p class="section-copy">
-            Replace this paragraph with your own story: your background, your creative interests, your approach, and the themes you care about.
-            A short, warm introduction usually works better than a long biography on the homepage.
-          </p>
-          <div class="about-list">
-            <p>Based in: Your city, country</p>
-            <p>Focus: Photography, art, craft, visual storytelling</p>
-            <p>Available for: Collaborations, commissions, exhibitions, freelance work</p>
-          </div>
-        </article>
-
-        <aside class="contact-panel reveal" id="contact">
+    <section class="section hidden" id="contact">
+      <div class="container">
+        <aside class="contact-panel reveal">
           <span class="eyebrow">Contact me</span>
           <h2 class="section-title">Make it easy to get in touch.</h2>
           <p class="section-copy">You can keep this simple with your email, Instagram, Behance, LinkedIn, or any portfolio platform you use.</p>
@@ -714,6 +863,73 @@
         });
       }
 
+      // Tab Switching & Section Navigation Logic
+      const sections = document.querySelectorAll('main section[id]');
+
+      function showSection(id) {
+        sections.forEach(section => {
+          if (section.id === id) {
+            section.classList.remove('hidden');
+            // Trigger reveal animations for elements in the shown section
+            section.querySelectorAll('.reveal:not(.is-visible)').forEach(el => {
+              el.classList.add('is-visible');
+            });
+          } else {
+            section.classList.add('hidden');
+          }
+        });
+
+        // Update active link in navbar
+        const navAnchors = document.querySelectorAll('.nav-links a');
+        navAnchors.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+
+      // Handle all internal links starting with '#'
+      const anchors = document.querySelectorAll('a[href^="#"]');
+      anchors.forEach(link => {
+        link.addEventListener('click', (e) => {
+          const targetId = link.getAttribute('href').substring(1);
+          if (!targetId || targetId === 'main-content') return; // Skip skip-to-content
+
+          // Handle special alias 'about' (points to bio block inside 'home')
+          if (targetId === 'about') {
+            e.preventDefault();
+            showSection('home');
+            const bioBlock = document.querySelector('.home-about-panel');
+            if (bioBlock) {
+              bioBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            // Close mobile menu
+            navLinks.classList.remove('open');
+            menuToggle && menuToggle.setAttribute('aria-expanded', 'false');
+            return;
+          }
+
+          // Check if there is a main section matching this ID
+          const targetSection = document.getElementById(targetId);
+          if (targetSection && targetSection.classList.contains('section')) {
+            e.preventDefault();
+            showSection(targetId);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Close mobile menu
+            navLinks.classList.remove('open');
+            menuToggle && menuToggle.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+
+      // Initialize first section (defaults to home or hash in url)
+      const currentHash = window.location.hash.substring(1);
+      if (currentHash && document.getElementById(currentHash) && document.getElementById(currentHash).classList.contains('section')) {
+        showSection(currentHash);
+      } else {
+        showSection('home');
+      }
+
+      // Keep the original IntersectionObserver for any elements that might still use it
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) entry.target.classList.add('is-visible');
@@ -721,24 +937,6 @@
       }, { threshold: 0.18 });
 
       document.querySelectorAll('.reveal:not(.is-visible)').forEach(el => observer.observe(el));
-
-      const sections = document.querySelectorAll('main section[id]');
-      const navAnchors = document.querySelectorAll('.nav-links a');
-      const sectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            navAnchors.forEach(link => {
-              link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
-            });
-          }
-        });
-      }, { rootMargin: '-40% 0px -45% 0px', threshold: 0 });
-      sections.forEach(section => sectionObserver.observe(section));
-
-      navAnchors.forEach(link => link.addEventListener('click', () => {
-        navLinks.classList.remove('open');
-        menuToggle && menuToggle.setAttribute('aria-expanded', 'false');
-      }));
     }());
   </script>
 </body>
