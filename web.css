@@ -1,1 +1,43 @@
+/* Scroll Progress Bar */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: var(--color-primary);
+  width: 0%;
+  z-index: 1001;
+  transition: width 0.1s ease-out;
+}
 
+/* Micro-interactions */
+.btn {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background var(--transition), color var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.stat {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow var(--transition);
+}
+
+.stat:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.science-card, .art-layout figure, .about-panel, .contact-panel {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow var(--transition);
+}
+
+.science-card:hover, .art-layout figure:hover, .about-panel:hover, .contact-panel:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}

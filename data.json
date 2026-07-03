@@ -1,0 +1,110 @@
+{
+  "aboutMe": {
+    "eyebrow": "About me",
+    "title": "Tell people who you are and what drives your work.",
+    "description": "Replace this paragraph with your own story: your background, your creative interests, your approach, and the themes you care about. A short, warm introduction usually works better than a long biography on the homepage.",
+    "details": [
+      "Based in: Your city, country",
+      "Focus: Photography, art, craft, visual storytelling",
+      "Available for: Collaborations, commissions, exhibitions, freelance work"
+    ],
+    "image": "me.png",
+    "imageAlt": "About me"
+  },
+  "hero": {
+    "eyebrow": "Artist",
+    "title": "Photography, art, craft, and science in one place.",
+    "description": "Use this homepage to introduce who you are, what you make, and why visitors should explore your world. Replace this text with your own short personal statement.",
+    "stats": [
+      { "value": "24+", "label": "Photo stories published" },
+      { "value": "12", "label": "Art and craft collections" },
+      { "value": "8", "label": "Featured work collaborations" }
+    ],
+    "card": {
+      "small": "Currently exploring",
+      "text": "Portrait photography, handmade textures, sketchbooks, and project-based visual storytelling."
+    }
+  },
+  "art": {
+    "eyebrow": "Art",
+    "title": "A gallery for photography, art, and craft.",
+    "description": "This section is ideal for your images. You can replace each sample image and caption with your own photography, sketches, paintings, mixed media, handmade craft, or any creative output.",
+    "tags": ["Photography", "Sketches", "Craft Objects", "Digital Art", "Experiments"],
+    "gallery": [
+      {
+        "src": "PXL_20251011_085615983.RAW-01.COVER.jpg",
+        "alt": "Portfolio sample image one",
+        "caption": "Photography series — Ajanta-Ellora.",
+        "category": "Photography"
+      },
+      {
+        "src": "PXL_20250718_054939262.PORTRAIT.ORIGINAL.jpg",
+        "alt": "Portfolio sample image two",
+        "caption": "Art study — medium and year.",
+        "category": "Sketches"
+      },
+      {
+        "src": "https://picsum.photos/seed/photo-gallery-3/800/800",
+        "alt": "Portfolio sample image three",
+        "caption": "Craft object — materials and process.",
+        "category": "Craft Objects"
+      },
+      {
+        "src": "https://picsum.photos/seed/photo-gallery-4/1200/800",
+        "alt": "Portfolio sample image four",
+        "caption": "Collection overview — use this space for a longer project caption.",
+        "category": "Digital Art"
+      }
+    ]
+  },
+  "science": {
+    "eyebrow": "Science",
+    "title": "Selected projects and experience.",
+    "description": "Use this area to show freelance work, exhibitions, internships, collaborations, publications, or professional roles. Keep each card focused on what you did and what made the project meaningful.",
+    "projects": [
+      {
+        "year": "2025",
+        "type": "Client project",
+        "title": "Editorial photo campaign",
+        "description": "Created a visual story for a culture-focused brand campaign, from concept sketches to final image curation.",
+        "linkText": "Ask about this work",
+        "linkHref": "#contact"
+      },
+      {
+        "year": "2024",
+        "type": "Exhibition",
+        "title": "Mixed-media craft showcase",
+        "description": "Presented a series combining recycled materials, hand textures, and minimal display design in a gallery setting.",
+        "linkText": "See related art",
+        "linkHref": "#art"
+      },
+      {
+        "year": "Ongoing",
+        "type": "Personal archive",
+        "title": "Field notes and visual experiments",
+        "description": "Documenting everyday scenes, studies, and process images as an evolving long-term body of work.",
+        "linkText": "Read my story",
+        "linkHref": "#about"
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Contact me",
+    "title": "Make it easy to get in touch.",
+    "description": "You can keep this simple with your email, Instagram, Behance, LinkedIn, or any portfolio platform you use.",
+    "items": [
+      { "label": "Email", "value": "pragya9verma@gmail.com", "type": "email" },
+      { "label": "Instagram", "value": "@pragya_v18", "type": "social" },
+      { "label": "Behance / Portfolio", "value": "behance.net/yourname", "type": "social" },
+      { "label": "Location", "value": "Jodhpur, Rajasthan", "type": "location" }
+    ],
+    "cta": {
+      "text": "Email me",
+      "href": "mailto:pragya9verma@gmail.com"
+    }
+  },
+  "footer": {
+    "copyright": "© 2026 Pragya Verma. Built for GitHub Pages.",
+    "subtext": "Update the text, images, and links to make it your own."
+  }
+}
