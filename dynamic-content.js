@@ -30,24 +30,44 @@
       console.error('Error loading website content:', error);
     }
   }
+function initSite() {
+  initTheme();
+  initMenu();
+  initNavigation();
+  initRevealAnimations();
+  initScrollProgress();
+  initStatCounters();
+  initLightbox();
+  initParallax();
 
-  function initSite() {
-    initTheme();
-    initMenu();
-    initNavigation();
-    initRevealAnimations();
-    initScrollProgress();
-    
-    // Initialize first section (defaults to home or hash in url)
-    const currentHash = window.location.hash.substring(1);
-    if (currentHash && document.getElementById(currentHash) && document.getElementById(currentHash).classList.contains('section')) {
-      showSection(currentHash);
-    } else {
-      showSection('home');
-    }
+  // Initialize first section (defaults to home or hash in url)
+  const currentHash = window.location.hash.substring(1);
+  if (currentHash && document.getElementById(currentHash) && document.getElementById(currentHash).classList.contains('section')) {
+    showSection(currentHash);
+  } else {
+    showSection('home');
   }
+}
 
-  function initScrollProgress() {
+function initParallax() {
+  const heroVisual = document.querySelector('.hero-visual');
+  if (!heroVisual) return;
+
+  const heroImage = heroVisual.querySelector('img') || heroVisual; // Fallback if no img
+
+  window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const speed = 0.4; // Adjust for more or less intensity
+    const movement = scrolled * speed;
+
+    // Apply transform to the background or the element itself
+    // Using background-position is often smoother for parallax on background images
+    heroVisual.style.backgroundPositionY = `${movement}px`;
+  }, { passive: true });
+}
+
+function initScrollProgress() {
+...
     const progressElement = document.getElementById('scroll-progress');
     if (!progressElement) return;
 
@@ -83,10 +103,18 @@
 
   // --- Menu Logic ---
   function initMenu() {
-    if (menuToggle && navLinks) {
+    const menuOverlay = document.getElementById('menu-overlay');
+    if (menuToggle && navLinks && menuOverlay) {
       menuToggle.addEventListener('click', function () {
         const isOpen = navLinks.classList.toggle('open');
+        menuOverlay.classList.toggle('is-active', isOpen);
         menuToggle.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      menuOverlay.addEventListener('click', function () {
+        navLinks.classList.remove('open');
+        menuOverlay.classList.remove('is-active');
+        menuToggle.setAttribute('aria-expanded', 'false');
       });
     }
   }
@@ -172,12 +200,17 @@
           <a class="btn btn-secondary" href="#contact">Contact me</a>
         </div>
         <div class="stats" aria-label="Highlights">
-          ${hero.stats.map(stat => `
-            <article class="stat">
-              <strong>${stat.value}</strong>
-              <span>${stat.label}</span>
-            </article>
-          `).join('')}
+          ${hero.stats.map(stat => {
+            const match = stat.value.match(/(\d+)(\D*)/);
+            const num = match ? match[1] : 0;
+            const suffix = match ? match[2] : '';
+            return `
+              <article class="stat">
+                <strong data-end="${num}" data-suffix="${suffix}">${num}${suffix}</strong>
+                <span>${stat.label}</span>
+              </article>
+            `;
+          }).join('')}
         </div>
       </div>
       <div class="hero-visual reveal" aria-label="Hero image for portfolio">
@@ -188,30 +221,75 @@
       </div>
     `;
   }
-
-  function renderArt(art, container) {
-    if (!container) return;
-    container.innerHTML = `
-      <div class="reveal">
-        <span class="eyebrow">${art.eyebrow}</span>
-        <h2 class="section-title">${art.title}</h2>
-        <p class="section-copy">${art.description}</p>
-        <div class="tag-row" aria-label="Creative categories">
-          ${art.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-        </div>
+function renderArt(art, container) {
+  if (!container) return;
+  container.innerHTML = `
+    <div class="reveal">
+      <span class="eyebrow">${art.eyebrow}</span>
+      <h2 class="section-title">${art.title}</h2>
+      <p class="section-copy">${art.description}</p>
+      <div class="tag-row" aria-label="Creative categories">
+        ${art.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
       </div>
-      <div class="gallery reveal">
-        ${art.gallery.map(item => `
-          <figure>
-            <img src="${item.src}" alt="${item.alt}" loading="lazy" />
-            <figcaption>${item.caption}</figcaption>
-          </figure>
-        `).join('')}
-      </div>
-    `;
-  }
+    </div>
+    <div class="gallery reveal">
+      ${art.gallery.map(item => `
+        <figure>
+          <img src="${item.src}" alt="${item.alt}" loading="lazy" class="gallery-image" data-caption="${item.caption}" />
+          <figcaption>${item.caption}</figcaption>
+        </figure>
+      `).join('')}
+    </div>
+  `;
 
-  function renderScience(science, container) {
+  // Add lightbox event listeners to the newly rendered images
+  container.querySelectorAll('.gallery-image').forEach(img => {
+    img.addEventListener('click', () => openLightbox(img.src, img.dataset.caption));
+  });
+}
+
+function initLightbox() {
+  const lightbox = document.getElementById('lightbox');
+  const closeButton = lightbox.querySelector('.lightbox-close');
+  const lightboxImage = lightbox.querySelector('.lightbox-image');
+  const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+
+  if (!lightbox || !closeButton || !lightboxImage || !lightboxCaption) return;
+
+  const closeLightbox = () => {
+    lightbox.classList.remove('is-active');
+    lightbox.setAttribute('aria-hidden', 'true');
+  };
+
+  closeButton.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  // Attach to window to handle Escape key
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.classList.contains('is-active')) {
+      closeLightbox();
+    }
+  });
+}
+
+function openLightbox(src, caption) {
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImage = lightbox.querySelector('.lightbox-image');
+  const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+
+  if (!lightbox || !lightboxImage || !lightboxCaption) return;
+
+  lightboxImage.src = src;
+  lightboxCaption.textContent = caption;
+  lightbox.classList.add('is-active');
+  lightbox.setAttribute('aria-hidden', 'false');
+}
+
+function renderScience(science, container) {
+...
+
     if (!container) return;
     container.innerHTML = `
       <span class="eyebrow">${science.eyebrow}</span>

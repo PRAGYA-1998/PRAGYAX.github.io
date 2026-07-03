@@ -92,10 +92,22 @@
       font-size: var(--text-base);
       line-height: 1.6;
       color: var(--color-text);
-      background:
-        radial-gradient(circle at top left, color-mix(in srgb, var(--color-primary) 10%, transparent), transparent 30%),
-        var(--color-bg);
+      background: linear-gradient(
+        -45deg,
+        var(--color-bg),
+        color-mix(in srgb, var(--color-bg) 80%, var(--color-primary) 20%),
+        var(--color-bg),
+        color-mix(in srgb, var(--color-bg) 80%, var(--color-primary) 20%)
+      );
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
       overflow-x: hidden; /* Prevent horizontal scrolling on tiny screens */
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
     img, svg { display: block; max-width: 100%; height: auto; }
     a { color: inherit; text-decoration: none; }
@@ -185,7 +197,39 @@
       color: var(--color-text-muted);
     }
     .nav-links a:hover,
-    .nav-links a.active { color: var(--color-text); }
+    .nav-links a.active { 
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: var(--space-8);
+      right: var(--space-8);
+      width: 3rem;
+      height: 3rem;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow-lg);
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--transition);
+      z-index: 1000;
+    }
+
+    .back-to-top.is-visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-5px);
+      background: var(--color-primary-hover);
+    }
     .header-actions {
       display: flex;
       align-items: center;
@@ -468,18 +512,6 @@
       transform: translateY(0);
     }
 
-    .section.hidden {
-      display: none;
-    }
-
-    .section.hidden {
-      display: none;
-    }
-
-    .section.hidden {
-      display: none;
-    }
-
     /* Responsive Media Queries */
 
     /* Tablet breakpoint (980px) */
@@ -674,6 +706,8 @@
     </div>
   </header>
 
+  <div id="menu-overlay" class="menu-overlay" aria-hidden="true"></div>
+
   <main id="main-content">
     <section class="hero section" id="home">
       <!-- About Me Bio Section, moved to the top -->
@@ -701,6 +735,14 @@
       <p>Update the text, images, and links to make it your own.</p>
     </div>
   </footer>
+
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
+    <div class="lightbox-content">
+      <img src="" alt="" class="lightbox-image" />
+      <p class="lightbox-caption"></p>
+    </div>
+  </div>
 
   <script src="dynamic-content.js"></script>
 </body>
